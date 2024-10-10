@@ -67,7 +67,7 @@ export type MessageType = {
     dateTime?: string;
 };
 type observerConfigType = (accessor: string | boolean | object | MessageType[]) => void;
-export type observersConfigType = Record<'observeUserInput' | 'observeLoading' | 'observeMessages', observerConfigType>;
+export type observersConfigType = Record<'observeUserInput' | 'observeLoading' | 'observeMessages' | 'observeChatId', observerConfigType>;
 export type BotProps = {
     chatflowid: string;
     apiHost?: string;
