@@ -113,7 +113,7 @@ export type MessageType = {
 };
 
 type observerConfigType = (accessor: string | boolean | object | MessageType[]) => void;
-export type observersConfigType = Record<'observeUserInput' | 'observeLoading' | 'observeMessages', observerConfigType>;
+export type observersConfigType = Record<'observeUserInput' | 'observeLoading' | 'observeMessages' | 'observeChatId', observerConfigType>;
 
 export type BotProps = {
   chatflowid: string;
@@ -291,7 +291,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
 
   onMount(() => {
     if (botProps?.observersConfig) {
-      const { observeUserInput, observeLoading, observeMessages } = botProps.observersConfig;
+      const { observeUserInput, observeLoading, observeMessages, observeChatId } = botProps.observersConfig;
       typeof observeUserInput === 'function' &&
         // eslint-disable-next-line solid/reactivity
         createMemo(() => {
@@ -306,6 +306,11 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
         // eslint-disable-next-line solid/reactivity
         createMemo(() => {
           observeMessages(messages());
+        });
+      typeof observeChatId === 'function' &&
+        // eslint-disable-next-line solid/reactivity
+        createMemo(() => {
+          observeChatId(chatId());
         });
     }
 
